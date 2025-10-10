@@ -1,0 +1,137 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "ANALYTICS_EVENTS": {
+      "name": "ANALYTICS_EVENTS",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "short_key": {
+          "autoincrement": false,
+          "name": "short_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "clicked_at": {
+          "autoincrement": false,
+          "name": "clicked_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ip_address": {
+          "autoincrement": false,
+          "name": "ip_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "referrer": {
+          "autoincrement": false,
+          "name": "referrer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_agent": {
+          "autoincrement": false,
+          "name": "user_agent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "index_short_key": {
+          "name": "index_short_key",
+          "columns": [
+            "short_key",
+            "id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "ANALYTICS_EVENTS_short_key_URL_MAP_short_key_fk": {
+          "name": "ANALYTICS_EVENTS_short_key_URL_MAP_short_key_fk",
+          "tableFrom": "ANALYTICS_EVENTS",
+          "tableTo": "URL_MAP",
+          "columnsFrom": [
+            "short_key"
+          ],
+          "columnsTo": [
+            "short_key"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "cascade"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "URL_MAP": {
+      "name": "URL_MAP",
+      "columns": {
+        "short_key": {
+          "autoincrement": false,
+          "name": "short_key",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_url": {
+          "autoincrement": false,
+          "name": "full_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "autoincrement": false,
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "autoincrement": false,
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "index_key_url": {
+          "name": "index_key_url",
+          "columns": [
+            "full_url",
+            "short_key"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
