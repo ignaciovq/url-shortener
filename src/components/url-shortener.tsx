@@ -21,7 +21,10 @@ export function UrlShortener() {
 
   const runViewTransition = (update: () => void) => {
     if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-      (document as any).startViewTransition(() => {
+      const documentWithTransition = document as Document & {
+        startViewTransition: (callback: () => void) => void;
+      };
+      documentWithTransition.startViewTransition(() => {
         update();
       });
     } else {
