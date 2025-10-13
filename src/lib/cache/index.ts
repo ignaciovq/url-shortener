@@ -7,7 +7,7 @@ import { CacheInterface } from './interface';
 import { getMemoryCache } from './memory';
 import { getRedisCache } from './redis';
 
-export { CacheInterface, CacheKeys } from './interface';
+export type { CacheInterface, CacheKeys } from './interface';
 
 let cacheInstance: CacheInterface | null = null;
 
