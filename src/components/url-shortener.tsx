@@ -154,7 +154,7 @@ export function UrlShortener() {
           <h2 className="text-base font-medium text-foreground">Short link ready</h2>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Input type="text" value={result.shortUrl} readOnly />
-            <Button type="button" onClick={copyToClipboard} variant="secondary">
+            <Button type="button" onClick={copyToClipboard} variant="secondary" className="w-1/6">
               {copied ? 'Copied!' : 'Copy'}
             </Button>
           </div>
