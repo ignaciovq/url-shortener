@@ -11,11 +11,38 @@ const client = createClient({
 // Create and export the Drizzle instance
 export const db = drizzle(client, { schema });
 
-// Export schema for easy access
-export { urlMap, analyticsEvents } from './schema';
+// Export schema tables for easy access
+export {
+  // Auth tables
+  user,
+  session,
+  account,
+  verification,
+  // App tables
+  urlMap,
+  analyticsEvents,
+  userPreferences,
+  reservedAliases
+} from './schema';
 
-// Type exports for use in the application
-export type UrlMap = typeof schema.urlMap.$inferSelect;
-export type NewUrlMap = typeof schema.urlMap.$inferInsert;
-export type AnalyticsEvent = typeof schema.analyticsEvents.$inferSelect;
-export type NewAnalyticsEvent = typeof schema.analyticsEvents.$inferInsert;
+// Re-export all types
+export type {
+  // Auth types
+  User,
+  NewUser,
+  Session,
+  NewSession,
+  Account,
+  NewAccount,
+  Verification,
+  NewVerification,
+  // App types
+  UrlMap,
+  NewUrlMap,
+  AnalyticsEvent,
+  NewAnalyticsEvent,
+  UserPreferences,
+  NewUserPreferences,
+  ReservedAlias,
+  NewReservedAlias
+} from './schema';

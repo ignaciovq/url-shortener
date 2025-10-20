@@ -8,6 +8,13 @@
       "when": 1760116934817,
       "tag": "0000_big_rockslide",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1760495044563,
+      "tag": "0001_daffy_dorian_gray",
+      "breakpoints": true
     }
   ]
 }
