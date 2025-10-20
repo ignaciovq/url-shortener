@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { verifyEmail, sendVerificationEmail, useUser } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { Loader2, CheckCircle2, XCircle, Mail } from "lucide-react";
 import Link from "next/link";
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const user = useUser();
@@ -187,5 +187,24 @@ export default function VerifyEmailPage() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle>Loading...</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+        </CardContent>
+      </Card>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }
