@@ -16,21 +16,21 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
-    sendVerificationEmail: async ({ user, url }) => {
+    sendVerificationEmail: async ({ user, url }: { user: { name: string; email: string }; url: string }) => {
       const template = emailTemplates.verification(user.name, url);
       await sendEmail({
         to: user.email,
         ...template
       });
     },
-    sendResetPassword: async ({ user, url }) => {
+    sendResetPassword: async ({ user, url }: { user: { name: string; email: string }; url: string }) => {
       const template = emailTemplates.passwordReset(user.name, url);
       await sendEmail({
         to: user.email,
         ...template
       });
     },
-    onPasswordReset: async ({ user }) => {
+    onPasswordReset: async ({ user }: { user: { email: string } }) => {
       console.log(`Password for user ${user.email} has been reset.`);
     },
   },
@@ -95,4 +95,4 @@ export const auth = betterAuth({
 
 // Export types for TypeScript
 export type Session = typeof auth.$Infer.Session;
-export type User = typeof auth.$Infer.User;
+export type User = typeof auth.$Infer.Session.user;
