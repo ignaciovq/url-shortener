@@ -47,11 +47,13 @@ export const auth = betterAuth({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       scope: ["email", "profile"],
+      trustEmailVerified: true, // Trust Google's email verification
     },
     github: {
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
       scope: ["user:email"],
+      trustEmailVerified: true, // Trust GitHub's verified email
     },
   },
 
@@ -87,7 +89,11 @@ export const auth = betterAuth({
 
   // Advanced configuration
   advanced: {
-    generateId: false, // Use database auto-generated IDs
+    database: {
+      generateId: () => {
+        return crypto.randomUUID();
+      } // Use database auto-generated IDs
+    },
     cookiePrefix: "url-shortener",
     useSecureCookies: process.env.NODE_ENV === "production",
   },
