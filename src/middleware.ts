@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCookieCache } from "better-auth/cookies";
+import { betterFetch } from "@better-fetch/fetch";
+import type { Session } from "@/lib/auth";
 
 // Routes that require authentication
 const protectedRoutes = [
@@ -30,8 +31,14 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // Get session from cookie cache for better performance
-  const session = await getCookieCache(request);
+  // Get session by making a request to the session endpoint
+  // This ensures we get the fresh session data after OAuth
+  const { data: session } = await betterFetch<Session>("/api/auth/get-session", {
+    baseURL: request.nextUrl.origin,
+    headers: {
+      cookie: request.headers.get("cookie") || "",
+    },
+  });
 
   // Redirect to sign-in if accessing protected route without authentication
   if (isProtectedRoute && !session) {
